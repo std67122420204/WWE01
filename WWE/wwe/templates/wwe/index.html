@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{title}}
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-3 mb-3">
+    <h1>{{title}}</h1>
+    <hr>
+    <div class="row">
+      <div class="col-md-6">
+        <a href="{{url_for('wwe.new_wwe')}}" class="btn btn-outline-secondary">
+          <i class="bi bi-file-earmark-plus"></i>
+          New Superstars
+        </a>
+      </div>
+      <div class="col-md-6"></div>
+    </div>
+    <table class="table table-hover mt-3">
+      <thead>
+        <th>#</th>
+        <th>Superstars Name</th>
+        <th>Created At</th>
+      </thead>
+      <tbody>
+        {% for wwe in wwes %}
+          <tr>
+            <td>{{loop.index}}</td>
+            <td>{{wwe.name}}</td>
+            <td>{{wwe.created_at}}</td>
+          </tr>
+        {% endfor %}
+        
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

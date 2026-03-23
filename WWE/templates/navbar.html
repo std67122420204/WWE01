@@ -1,0 +1,83 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+
+  
+    <a class="navbar-brand" href="{{url_for('core.index')}}">WWE Superstars</a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+      {% if current_user.is_authenticated %}
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="{{url_for('core.index')}}">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{url_for('wwe.index')}}" class="nav-link">Superstars</a>
+          </li>
+
+          
+          <li class="nav-item">
+            <a href="{{url_for('wwe.new_wwe')}}" class="nav-link text-success">
+              + Add Superstar
+            </a>
+          </li>
+        </ul>
+      {% else %}
+        <ul class="navbar-nav me-auto"></ul>
+      {% endif %}
+
+    
+      <ul class="navbar-nav">
+        {% if current_user.is_authenticated %}
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+
+                <img src="{{url_for('static', filename='img/' + current_user.avatar)}}" 
+                     alt="" width="25" height="25" class="rounded-circle">
+
+                Welcome, {{current_user.username}}
+              </a>
+
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="{{url_for('users.profile')}}">
+                    Profile
+                  </a>
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="{{url_for('users.change_password')}}">
+                    Change Password
+                  </a>
+                </li>
+
+                <li><hr class="dropdown-divider"></li>
+
+                <li>
+                  <a class="dropdown-item text-danger" href="{{url_for('users.logout')}}">
+                    Logout
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+        {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('users.register')}}">Register</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('users.login')}}">Login</a>
+            </li>
+        {% endif %}
+      </ul>
+
+    </div>
+  </div>
+</nav>

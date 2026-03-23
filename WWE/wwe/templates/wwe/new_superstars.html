@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{title}}
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-3 mb-3">
+    <h1>{{title}}</h1>
+    <hr>
+    <div class="card mt-3">
+      <div class="card-header">
+        <h3>New Superstars Form</h3>
+      </div>
+      <div class="card-body">
+        <form method="post">
+          <div class="mb-3">
+            <label for="name" class="form-label">Superstars Name</label>
+            <input name="name" type="text" class="form-control" id="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="height" class="form-label">Superstars Height</label>
+            <input name="height" type="text" class="form-control" id="height" required>
+          </div>
+          <div class="mb-3">
+            <label for="weight" class="form-label">Superstars Weight</label>
+            <input name="weight" type="text" class="form-control" id="weight" required>
+          </div>
+          
+          <div class="mb-3">
+            <label for="description" class="form-label">Superstars Description</label>
+            <textarea name="description" class="form-control" id="description" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="img_url" class="form-label">Superstars Image Url</label>
+            <input name="img_url" type="text" class="form-control" id="img_url" required>
+          </div>
+          <div class="mb-3">
+            <label for="wwe_types" class="form-label">Superstars Type</label>
+            <select name="wwe_types" class="form-select" aria-label="wwe_types" multiple>
+              {% for type in wwe_types %}
+                <option value="{{type.id}}">{{type.name}}</option>
+              {% endfor %}
+              
+            </select>
+          </div>
+          <hr>
+          <button type="submit" class="btn btn-outline-secondary">
+            <i class="bi bi-file-earmark-plus"></i>
+            Add New Superstars</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

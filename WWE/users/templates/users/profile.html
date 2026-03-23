@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{title}}
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-3">
+    <h1>{{title}}</h1>
+    <hr>
+    <div class="card mt-3 mb-3">
+      <div class="card-header">
+        <h3>Profile Information</h3>
+      </div>
+      <div class="card-body">
+        <form class="row g-3" method="post">
+          <div class="col-md-6">
+            <label for="username" class="form-label">Username</label>
+            <input disabled value="{{user.username}}" type="text" class="form-control" id="username">
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email Address</label>
+            <input disabled value="{{user.email}}" type="email" class="form-control" id="email">
+          </div>
+          <div class="col-md-6">
+            <label for="firstname" class="form-label">Firstname</label>
+            <input name="firstname" value="{{user.firstname}}" type="text" class="form-control" id="firstname">
+          </div>
+          <div class="col-md-6">
+            <label for="lastname" class="form-label">Lastname</label>
+            <input name="lastname" value="{{user.lastname}}" type="text" class="form-control" id="lastname">
+          </div>
+          
+          <hr>
+          <div class="col-12">
+            <button type="submit" class="btn btn-outline-secondary">
+              <i class="bi bi-person-square"></i>
+              Update Profile</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
