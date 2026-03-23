@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  {{ wwe.name }} - Detail
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-4">
+      <img src="{{ wwe.img_url }}" class="img-fluid rounded shadow" alt="{{ wwe.name }}" 
+           style="width: 100%; object-fit: cover;">
+    </div>
+
+    <div class="col-md-8">
+      <h2 class="display-5">{{ wwe.name }}</h2> <hr>
+
+      <div class="mb-3">
+        <p><strong>Type:</strong> 
+          {% for t in wwe.types %}
+            <span class="badge bg-primary">{{ t.name }}</span>
+          {% endfor %}
+        </p>
+        
+        <p><strong>Height (ส่วนสูง):</strong> {{ wwe.height }}</p>
+        <p><strong>Weight (น้ำหนัก):</strong> {{ wwe.weight }}</p>
+      </div>
+
+      <div class="mt-4">
+        <h5><strong>Description (รายละเอียด):</strong></h5>
+        <p class="text-muted" style="line-height: 1.6;">
+          {{ wwe.description }}
+        </p>
+      </div>
+
+      <div class="mt-4">
+        <a href="{{ url_for('core.index') }}" class="btn btn-secondary">
+          <i class="fas fa-arrow-left"></i> Back to List
+        </a>
+        <a href="{{ url_for('core.index') }}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Back
+    </a>
+    
+    <a href="{{ url_for('wwe.edit_wwe', wwe_id=wwe.id) }}" 
+       class="btn text-white" 
+       style="background: linear-gradient(to right, #8b5cf6, #ec4899); border: none;">
+        <i class="bi bi-pencil-square"></i> Edit Superstar
+    </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

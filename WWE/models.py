@@ -51,7 +51,7 @@ class Type(db.Model):
 
    
     wwes: Mapped[List['WWE']] = relationship(
-        back_populates='types',
+        back_populates='categories', 
         secondary=wwe_type
     )
 
@@ -76,8 +76,8 @@ class WWE(db.Model):
     
     user: Mapped['User'] = relationship(back_populates='wwes')
 
-    types: Mapped[List['Type']] = relationship(
-        back_populates='wwes',
+    categories: Mapped[List['Type']] = relationship(
+        back_populates='wwes',      
         secondary=wwe_type
     )
 

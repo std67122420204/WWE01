@@ -56,7 +56,7 @@ def new_wwe():
             description=description,
             img_url=img_url,
             user_id=current_user.id,
-            types=selected_types
+            categories=selected_types
         )
         db.session.add(new_wwe)
         db.session.commit()
@@ -67,3 +67,31 @@ def new_wwe():
     return render_template('wwe/new_superstars.html',
                            title='Add New Superstar',
                            wwe_types=wwe_types)
+
+@wwe_bp.route("/wwe/<int:wwe_id>/edit", methods=['GET', 'POST'])
+@login_required
+def edit_wwe(wwe_id):
+    wwe_item = db.get_or_404(WWE, wwe_id)
+    form = WWE.Form() 
+
+    if form.validate_on_submit():
+        wwe_item.name = form.name.data
+        wwe_item.height = form.height.data
+        wwe_item.weight = form.weight.data
+        wwe_item.description = form.description.data
+        
+        wwe_item.types = form.types.data 
+        
+        db.session.commit()
+        flash('อัปเดตข้อมูล Superstar เรียบร้อยแล้ว!', 'success')
+        return redirect(url_for('wwe.wwe_detail', wwe_id=wwe_item.id))
+    
+    elif request.method == 'GET':
+        
+        form.name.data = wwe_item.name
+        form.height.data = wwe_item.height
+        form.weight.data = wwe_item.weight
+        form.description.data = wwe_item.description
+        form.types.data = wwe_item.types
+
+    return render_template('add_wwe.html', title='Edit Superstar', form=form, legend='Edit Superstar')

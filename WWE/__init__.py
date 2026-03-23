@@ -10,7 +10,7 @@ def create_app():
     app = Flask(__name__)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL') 
-    app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+    app.config['SECRET_KEY'] = 'secret123'
 
     db.init_app(app)
     bcrypt.init_app(app)
