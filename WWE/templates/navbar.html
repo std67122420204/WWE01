@@ -12,8 +12,13 @@
 
       {% if current_user.is_authenticated %}
         <ul class="navbar-nav me-auto">
-          
 
+           <li class="nav-item">
+            <a href="{{url_for('wwe.index')}}" class="nav-link text-success">
+              Superstar
+            </a>
+          </li>
+          
           
           <li class="nav-item">
             <a href="{{url_for('wwe.new_wwe')}}" class="nav-link text-success">

@@ -1,9 +1,12 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed, FileField
-from wtforms.fields import StringField, EmailField, PasswordField, SubmitField, BooleanField
+from wtforms.fields import (
+    StringField, EmailField, PasswordField, SubmitField, 
+    BooleanField, TextAreaField, SelectMultipleField)
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from WWE.models import User
 from WWE.extensions import db
+
 
 
 class RegisterForm(FlaskForm):
@@ -48,3 +51,12 @@ class UpdateAccountForm(FlaskForm):
     avatar = FileField(label='Update Profile Avatar', validators=[FileAllowed(['jpg', 'jpeg', 'png'])])
 
     submit = SubmitField(label='Update Account')
+
+class WWEForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    height = StringField('Height', validators=[DataRequired()])
+    weight = StringField('Weight', validators=[DataRequired()])
+    description = TextAreaField('Description', validators=[DataRequired()])
+    
+    types = SelectMultipleField('Types', coerce=int)
+    submit = SubmitField('Submit')

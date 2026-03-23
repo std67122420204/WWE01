@@ -1,8 +1,11 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+from WWE import form
 from WWE.extensions import db
 from WWE.models import WWE, Type
 from flask_login import login_required, current_user
 from sqlalchemy import func
+from WWE.models import WWE, Type
+from WWE.form import WWEForm
 
 wwe_bp = Blueprint('wwe', __name__, template_folder='templates')
 
@@ -56,7 +59,7 @@ def new_wwe():
             description=description,
             img_url=img_url,
             user_id=current_user.id,
-            categories=selected_types
+            types=selected_types_objects
         )
         db.session.add(new_wwe)
         db.session.commit()
@@ -72,7 +75,7 @@ def new_wwe():
 @login_required
 def edit_wwe(wwe_id):
     wwe_item = db.get_or_404(WWE, wwe_id)
-    form = WWE.Form() 
+    form = WWEForm() 
 
     if form.validate_on_submit():
         wwe_item.name = form.name.data
@@ -87,11 +90,10 @@ def edit_wwe(wwe_id):
         return redirect(url_for('wwe.wwe_detail', wwe_id=wwe_item.id))
     
     elif request.method == 'GET':
-        
         form.name.data = wwe_item.name
         form.height.data = wwe_item.height
         form.weight.data = wwe_item.weight
         form.description.data = wwe_item.description
-        form.types.data = wwe_item.types
+        form.types.data = [t.id for t in wwe_item.categories]
 
-    return render_template('add_wwe.html', title='Edit Superstar', form=form, legend='Edit Superstar')
+    return render_template('wwe/new_superstars.html', title='Edit Superstar', form=form, legend='Edit Superstar')
