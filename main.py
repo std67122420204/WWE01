@@ -1,3 +1,3 @@
-from flask import Flask
+from WWE import create_app
 
-app = Flask(__name__)
+app = create_app()
